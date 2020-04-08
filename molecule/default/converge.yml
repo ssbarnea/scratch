@@ -1,0 +1,22 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include myrole"
+      shell:
+        cmd: |
+          set -o pipefail
+          which python
+          set | grep PYTHONPATH= || true
+          set | grep VIRTUAL_ENV= || true
+        executable: /bin/bash
+      register: result
+      changed_when: false
+
+    - debug:
+        var: result.stdout_lines
+
+    - name: validate that we can use docker_image module
+      docker_image:
+        name: centos:7
+        source: pull
