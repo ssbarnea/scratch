@@ -3,7 +3,7 @@
   hosts: all
   tasks:
     - name: "Include myrole"
-      shell:
+      ansible.builtin.shell:
         cmd: |
           set -o pipefail
           which python
@@ -13,10 +13,11 @@
       register: result
       changed_when: false
 
-    - debug:
+    - name: Display debug info
+      ansible.builtin.debug:
         var: result.stdout_lines
 
-    - name: validate that we can use docker_image module
+    - name: Validate that we can use docker_image module
       docker_image:
         name: centos:7
         source: pull

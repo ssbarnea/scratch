@@ -10,11 +10,12 @@
     # Mandatory configuration for Molecule to function.
 
     - name: Populate instance config
-      set_fact:
+      ansible.builtin.set_fact:
         instance_conf: {}
 
-    - name: Dump instance config  # noqa 503
-      copy:
+    - name: Dump instance config  # noqa: no-handler
+      ansible.builtin.copy:
         content: "{{ instance_conf | to_json | from_json | molecule_to_yaml | molecule_header }}"
         dest: "{{ molecule_instance_config }}"
+        mode: 0600
       when: server.changed | default(false) | bool
