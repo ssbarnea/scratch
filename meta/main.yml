@@ -1,5 +1,5 @@
-version: 1
 galaxy_info:
+  standalone: false
   author: Sorin Sbarnea
   namespace: ssbarnea
   description: Foo bar
